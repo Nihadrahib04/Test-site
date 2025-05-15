@@ -1,0 +1,237 @@
+<!DOCTYPE html><html lang="az">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Peşəkar Test Platforması</title>
+  <style>
+    :root {
+      --primary: #673ab7;
+      --secondary: #9575cd;
+      --success: #4caf50;
+      --error: #f44336;
+      --background: #f3e5f5;
+      --text-dark: #212121;
+      --card-bg: #ffffff;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #ede7f6, #fffde7);
+      color: var(--text-dark);
+    }
+    header {
+      background: var(--primary);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+      font-size: 2rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 2rem;
+    }
+    .section {
+      display: none;
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-top: 1.5rem;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
+      animation: fade 0.5s ease-in-out;
+    }
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    button {
+      background: var(--primary);
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      margin: 0.5rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: var(--secondary);
+    }
+    .option {
+      background: var(--background);
+      border: 2px solid var(--secondary);
+      padding: 1rem;
+      margin: 0.5rem auto;
+      border-radius: 12px;
+      max-width: 600px;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.3s ease;
+    }
+    .option:hover {
+      transform: scale(1.02);
+    }
+    .correct { background-color: #c8e6c9; border-color: var(--success); }
+    .wrong { background-color: #ffcdd2; border-color: var(--error); }
+    .timer {
+      font-size: 1.2rem;
+      margin: 1rem 0;
+      color: var(--error);
+    }
+    #result {
+      font-size: 1.3rem;
+      margin-top: 2rem;
+    }
+    .back-btn {
+      background-color: #eeeeee;
+      color: #333;
+      padding: 0.6rem 1.2rem;
+      margin-top: 1rem;
+      border-radius: 8px;
+      display: inline-block;
+      cursor: pointer;
+    }
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #666;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <header>Peşəkar Test Platforması</header>
+  <div class="container">
+    <div id="welcomeSection" class="section" style="display:block">
+      <h2>Xoş gəlmisiniz!</h2>
+      <p>Bu platformada HR, Maliyyə, Satış və Analitika sahələrində biliklərinizi yoxlaya bilərsiniz. Testlər 3 səviyyədədir və hər suala 1 dəqiqə vaxt verilir. Sonda nəticənizi və tövsiyələri görəcəksiniz.</p>
+      <button onclick="showSection('typeSection')">Başlayaq</button>
+    </div><div id="typeSection" class="section">
+  <h3>Test növünü seçin</h3>
+  <button onclick="showSection('categorySection')">İxtisas testləri</button>
+  <div class="back-btn" onclick="showSection('welcomeSection')">Geri</div>
+</div>
+
+<div id="categorySection" class="section">
+  <h3>Kateqoriya seçin</h3>
+  <button onclick="selectCategory('HR')">HR</button>
+  <button onclick="selectCategory('Maliyyə')">Maliyyə</button>
+  <button onclick="selectCategory('Satış')">Satış</button>
+  <button onclick="selectCategory('Analitika')">Analitika</button>
+  <div class="back-btn" onclick="showSection('typeSection')">Geri</div>
+</div>
+
+<div id="levelSection" class="section">
+  <h3>Səviyyə seçin</h3>
+  <button onclick="selectLevel('Asan')">Asan</button>
+  <button onclick="selectLevel('Orta')">Orta</button>
+  <button onclick="selectLevel('Çətin')">Çətin</button>
+  <div class="back-btn" onclick="showSection('categorySection')">Geri</div>
+</div>
+
+<div id="quizSection" class="section">
+  <div class="timer" id="timer"></div>
+  <div id="questionBox"></div>
+  <div id="result"></div>
+  <button id="exitBtn" style="display:none" onclick="location.reload()">Çıxış</button>
+</div>
+
+  </div>
+  <footer>
+    Hazırlayan: Sənin şəxsi test sistemin | © 2025
+  </footer>  <script>
+    let selectedCategory = '', selectedLevel = '', currentQuestion = 0, score = 0;
+    let timer, timeLeft = 60;
+
+    const questions = {
+      'HR': {
+        'Asan': [
+          { q: "HR nə edir?", o: ["Satış", "İşə qəbul", "Mühasibatlıq", "Dizayn"], a: 1 },
+          { q: "HR hansı sahəyə aiddir?", o: ["İnsanlar", "Kompüterlər", "Mühəndislik", "Təchizat"], a: 0 }
+        ]
+      }
+    };
+
+    function showSection(id) {
+      document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+      document.getElementById(id).style.display = 'block';
+    }
+
+    function selectCategory(cat) {
+      selectedCategory = cat;
+      showSection('levelSection');
+    }
+
+    function selectLevel(level) {
+      selectedLevel = level;
+      showSection('quizSection');
+      startQuiz();
+    }
+
+    function startQuiz() {
+      score = 0;
+      currentQuestion = 0;
+      showQuestion();
+    }
+
+    function startTimer() {
+      timeLeft = 60;
+      document.getElementById('timer').innerText = `Vaxt: ${timeLeft} saniyə`;
+      timer = setInterval(() => {
+        timeLeft--;
+        document.getElementById('timer').innerText = `Vaxt: ${timeLeft} saniyə`;
+        if (timeLeft <= 0) {
+          clearInterval(timer);
+          nextQuestion();
+        }
+      }, 1000);
+    }
+
+    function showQuestion() {
+      clearInterval(timer);
+      const qList = questions[selectedCategory][selectedLevel];
+      if (currentQuestion >= qList.length) {
+        showResult();
+        return;
+      }
+      const q = qList[currentQuestion];
+      let html = `<h4>${q.q}</h4>`;
+      q.o.forEach((opt, idx) => {
+        html += `<div class="option" onclick="checkAnswer(${idx})">${opt}</div>`;
+      });
+      document.getElementById('questionBox').innerHTML = html;
+      startTimer();
+    }
+
+    function checkAnswer(choice) {
+      clearInterval(timer);
+      const qList = questions[selectedCategory][selectedLevel];
+      const correct = qList[currentQuestion].a;
+      const options = document.querySelectorAll('.option');
+      options.forEach((opt, idx) => {
+        opt.onclick = null;
+        if (idx === correct) opt.classList.add('correct');
+        else if (idx === choice) opt.classList.add('wrong');
+      });
+      if (choice === correct) score++;
+      setTimeout(nextQuestion, 1500);
+    }
+
+    function nextQuestion() {
+      currentQuestion++;
+      showQuestion();
+    }
+
+    function showResult() {
+      document.getElementById('questionBox').innerHTML = '';
+      document.getElementById('timer').innerHTML = '';
+      document.getElementById('result').innerHTML = `Test bitdi!<br>Doğru: ${score}<br>Səhv: ${questions[selectedCategory][selectedLevel].length - score}<br><br><b>Uğurlar!</b>`;
+      document.getElementById('exitBtn').style.display = 'inline-block';
+    }
+  </script></body>
+</html>
