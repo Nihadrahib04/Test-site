@@ -1,237 +1,374 @@
-<!DOCTYPE html><html lang="az">
+<!DOCTYPE html>
+<html lang="az">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Peşəkar Test Platforması</title>
-  <style>
-    :root {
-      --primary: #673ab7;
-      --secondary: #9575cd;
-      --success: #4caf50;
-      --error: #f44336;
-      --background: #f3e5f5;
-      --text-dark: #212121;
-      --card-bg: #ffffff;
-    }
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #ede7f6, #fffde7);
-      color: var(--text-dark);
-    }
-    header {
-      background: var(--primary);
-      color: white;
-      padding: 2rem;
-      text-align: center;
-      font-size: 2rem;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    }
-    .container {
-      max-width: 1000px;
-      margin: auto;
-      padding: 2rem;
-    }
-    .section {
-      display: none;
-      background: var(--card-bg);
-      border-radius: 16px;
-      padding: 2rem;
-      margin-top: 1.5rem;
-      box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
-      animation: fade 0.5s ease-in-out;
-    }
-    @keyframes fade {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    button {
-      background: var(--primary);
-      color: white;
-      padding: 1rem 2rem;
-      border: none;
-      border-radius: 12px;
-      font-size: 1rem;
-      margin: 0.5rem;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-    button:hover {
-      background: var(--secondary);
-    }
-    .option {
-      background: var(--background);
-      border: 2px solid var(--secondary);
-      padding: 1rem;
-      margin: 0.5rem auto;
-      border-radius: 12px;
-      max-width: 600px;
-      cursor: pointer;
-      transition: transform 0.2s ease, background 0.3s ease;
-    }
-    .option:hover {
-      transform: scale(1.02);
-    }
-    .correct { background-color: #c8e6c9; border-color: var(--success); }
-    .wrong { background-color: #ffcdd2; border-color: var(--error); }
-    .timer {
-      font-size: 1.2rem;
-      margin: 1rem 0;
-      color: var(--error);
-    }
-    #result {
-      font-size: 1.3rem;
-      margin-top: 2rem;
-    }
-    .back-btn {
-      background-color: #eeeeee;
-      color: #333;
-      padding: 0.6rem 1.2rem;
-      margin-top: 1rem;
-      border-radius: 8px;
-      display: inline-block;
-      cursor: pointer;
-    }
-    footer {
-      text-align: center;
-      font-size: 0.9rem;
-      color: #666;
-      margin-top: 2rem;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>İmtahan</title>
+<style>
+  /* Sənin əvvəlki CSS kodun saxlanılıb */
+  body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to right, #243b55, #141e30);
+    margin: 0;
+    padding: 40px 20px;
+    color: #f0f0f0;
+  }
+  .container {
+    max-width: 480px;
+    margin: auto;
+    background-color: #1f2c3a;
+    border-radius: 16px;
+    padding: 30px 25px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.7);
+  }
+  h1 {
+    text-align: center;
+    margin-bottom: 35px;
+    color: #4cd137;
+  }
+  #category-selection {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-bottom: 35px;
+  }
+  .category-card {
+    background: #2a3a4d;
+    border-radius: 12px;
+    padding: 18px 22px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: border-color 0.3s ease;
+  }
+  .category-card:hover {
+    border-color: #4cd137;
+  }
+  .category-card.selected {
+    border-color: #4cd137;
+    background: #3d5c71;
+  }
+  .category-icon {
+    font-size: 40px;
+    margin-right: 20px;
+    color: #4cd137;
+    width: 50px;
+    text-align: center;
+  }
+  .category-name {
+    font-size: 24px;
+    font-weight: 700;
+  }
+  #level-selection {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 35px;
+  }
+  #level-selection button {
+    background: #2a3a4d;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #ddd;
+    cursor: pointer;
+    flex: 1;
+    margin: 0 8px;
+    transition: background-color 0.3s ease;
+  }
+  #level-selection button.selected {
+    background-color: #4cd137;
+    color: #141e30;
+    box-shadow: 0 0 8px #4cd137;
+  }
+  #start-exam-btn {
+    width: 100%;
+    background: #4cd137;
+    border: none;
+    padding: 16px 0;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 22px;
+    color: #141e30;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+  }
+  #start-exam-btn.enabled {
+    opacity: 1;
+  }
+  #exam-page {
+    display: none;
+  }
+  .question-card {
+    background: #2f3e56;
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  .question-title {
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #8df57d;
+  }
+  label {
+    display: block;
+    background: #1f2c3a;
+    padding: 10px 16px;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    color: #f0f0f0;
+  }
+  input[type="radio"] {
+    display: none;
+  }
+  input[type="radio"]:checked + label {
+    background-color: #4cd137;
+    color: #141e30;
+    box-shadow: 0 0 10px #4cd137;
+  }
+  #submit-btn {
+    width: 100%;
+    background: #4cd137;
+    border: none;
+    padding: 15px 0;
+    font-weight: 700;
+    font-size: 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    color: #141e30;
+    margin-top: 10px;
+  }
+  #result {
+    margin-top: 25px;
+    font-size: 22px;
+    font-weight: 700;
+    color: #4cd137;
+    text-align: center;
+  }
+  label.correct {
+    background-color: #27ae60 !important;
+    color: #ecf0f1 !important;
+    box-shadow: 0 0 10px #27ae60 !important;
+  }
+  label.wrong {
+    background-color: #c0392b !important;
+    color: #ecf0f1 !important;
+    box-shadow: 0 0 10px #c0392b !important;
+  }
+  #timer {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #f39c12;
+  }
+</style>
 </head>
 <body>
-  <header>Peşəkar Test Platforması</header>
-  <div class="container">
-    <div id="welcomeSection" class="section" style="display:block">
-      <h2>Xoş gəlmisiniz!</h2>
-      <p>Bu platformada HR, Maliyyə, Satış və Analitika sahələrində biliklərinizi yoxlaya bilərsiniz. Testlər 3 səviyyədədir və hər suala 1 dəqiqə vaxt verilir. Sonda nəticənizi və tövsiyələri görəcəksiniz.</p>
-      <button onclick="showSection('typeSection')">Başlayaq</button>
-    </div><div id="typeSection" class="section">
-  <h3>Test növünü seçin</h3>
-  <button onclick="showSection('categorySection')">İxtisas testləri</button>
-  <div class="back-btn" onclick="showSection('welcomeSection')">Geri</div>
-</div>
 
-<div id="categorySection" class="section">
-  <h3>Kateqoriya seçin</h3>
-  <button onclick="selectCategory('HR')">HR</button>
-  <button onclick="selectCategory('Maliyyə')">Maliyyə</button>
-  <button onclick="selectCategory('Satış')">Satış</button>
-  <button onclick="selectCategory('Analitika')">Analitika</button>
-  <div class="back-btn" onclick="showSection('typeSection')">Geri</div>
-</div>
-
-<div id="levelSection" class="section">
-  <h3>Səviyyə seçin</h3>
-  <button onclick="selectLevel('Asan')">Asan</button>
-  <button onclick="selectLevel('Orta')">Orta</button>
-  <button onclick="selectLevel('Çətin')">Çətin</button>
-  <div class="back-btn" onclick="showSection('categorySection')">Geri</div>
-</div>
-
-<div id="quizSection" class="section">
-  <div class="timer" id="timer"></div>
-  <div id="questionBox"></div>
-  <div id="result"></div>
-  <button id="exitBtn" style="display:none" onclick="location.reload()">Çıxış</button>
-</div>
-
+<div class="container">
+  <h1>Peşəkar İmtahan Platforması</h1>
+  <div id="start-page">
+    <div id="category-selection">
+      <div class="category-card" data-category="hr"><div class="category-icon">👥</div><div class="category-name">HR</div></div>
+      <div class="category-card" data-category="finance"><div class="category-icon">💰</div><div class="category-name">Maliyyə</div></div>
+      <div class="category-card" data-category="sales"><div class="category-icon">📈</div><div class="category-name">Satış</div></div>
+    </div>
+    <div id="level-selection">
+      <button data-level="asan">Asan</button>
+      <button data-level="orta">Orta</button>
+      <button data-level="cetin">Çətin</button>
+    </div>
+    <button id="start-exam-btn" disabled>İmtahana başla</button>
   </div>
-  <footer>
-    Hazırlayan: Sənin şəxsi test sistemin | © 2025
-  </footer>  <script>
-    let selectedCategory = '', selectedLevel = '', currentQuestion = 0, score = 0;
-    let timer, timeLeft = 60;
 
-    const questions = {
-      'HR': {
-        'Asan': [
-          { q: "HR nə edir?", o: ["Satış", "İşə qəbul", "Mühasibatlıq", "Dizayn"], a: 1 },
-          { q: "HR hansı sahəyə aiddir?", o: ["İnsanlar", "Kompüterlər", "Mühəndislik", "Təchizat"], a: 0 }
-        ]
+  <div id="exam-page">
+    <div id="timer">Vaxt: 00:00</div>
+    <form id="exam-form">
+      <div id="questions-container"></div>
+      <button type="submit" id="submit-btn">İmtahanı bitir</button>
+    </form>
+    <div id="result"></div>
+  </div>
+</div>
+
+<script>
+  const categoryCards = document.querySelectorAll('.category-card');
+  const levelButtons = document.querySelectorAll('#level-selection button');
+  const startBtn = document.getElementById('start-exam-btn');
+  const startPage = document.getElementById('start-page');
+  const examPage = document.getElementById('exam-page');
+  const questionsContainer = document.getElementById('questions-container');
+  const examForm = document.getElementById('exam-form');
+  const resultDiv = document.getElementById('result');
+  const timerDisplay = document.getElementById('timer');
+
+  let selectedCategory = null;
+  let selectedLevel = null;
+  let timerInterval;
+  let timeLeft = 60; // imtahan müddəti saniyə ilə (məsələn: 60 saniyə)
+
+  categoryCards.forEach(card => {
+    card.addEventListener('click', () => {
+      categoryCards.forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      selectedCategory = card.dataset.category;
+      checkReadyToStart();
+    });
+  });
+
+  levelButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      levelButtons.forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selectedLevel = btn.dataset.level;
+      checkReadyToStart();
+    });
+  });
+
+  function checkReadyToStart() {
+    if(selectedCategory && selectedLevel) {
+      startBtn.disabled = false;
+      startBtn.classList.add('enabled');
+    } else {
+      startBtn.disabled = true;
+      startBtn.classList.remove('enabled');
+    }
+  }
+
+  const questionsDB = {
+    hr: {
+      asan: [
+        { question: "İşçilərin motivasiyasını artırmaq üçün hansı metod təsirlidir?", options: ["Mükafatlandırma", "Cəzalandırma", "Yalnız maaş artırımı", "Əməkdaşlığı məhdudlaşdırmaq"], answer: 0 },
+        { question: "İşə qəbul zamanı əsas kriteriya nədir?", options: ["Təcrübə", "Yaş", "Cins", "Yalnız diplom"], answer: 0 },
+      ],
+      orta: [
+        { question: "HR-də ‘360 dərəcə qiymətləndirmə’ nə deməkdir?", options: ["Yalnız rəhbər qiymətləndirir", "Bir neçə mənbədən qiymətləndirmə", "İşçilərin özünü qiymətləndirməsi yoxdur", "Müştərilər qiymətləndirir"], answer: 1 },
+      ],
+      cetin: [
+        { question: "İşçi motivasiyası üçün Hansı nəzəriyyə doğrudur?", options: ["Maslovun ehtiyaclar piramidası", "Newtonun hərəkət qanunu", "Darvinin təkamül nəzəriyyəsi", "Pavlovun refleksləri"], answer: 0 },
+      ],
+    },
+    finance: {
+      asan: [
+        { question: "Pul vahidi nədir?", options: ["Valyuta", "Məhsul", "Xidmət", "Mallar"], answer: 0 },
+      ],
+      orta: [],
+      cetin: [],
+    },
+    sales: {
+      asan: [
+        { question: "Satışda əsas məqsəd nədir?", options: ["Müştərini məmnun etmək", "Məhsulu pulsuz vermək", "Reklam etmək", "Qiyməti artırmaq"], answer: 0 },
+      ],
+      orta: [],
+      cetin: [],
+    }
+  };
+
+  function startTimer(duration) {
+    timeLeft = duration;
+    updateTimerDisplay();
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      updateTimerDisplay();
+      if (timeLeft <= 0) {
+        clearInterval(timerInterval);
+        examForm.dispatchEvent(new Event('submit'));
       }
-    };
+    }, 1000);
+  }
 
-    function showSection(id) {
-      document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
-      document.getElementById(id).style.display = 'block';
-    }
+  function updateTimerDisplay() {
+    const minutes = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+    const seconds = (timeLeft % 60).toString().padStart(2, '0');
+    timerDisplay.textContent = `Vaxt: ${minutes}:${seconds}`;
+  }
 
-    function selectCategory(cat) {
-      selectedCategory = cat;
-      showSection('levelSection');
-    }
+  startBtn.addEventListener('click', () => {
+    startPage.style.display = "none";
+    examPage.style.display = "block";
+    resultDiv.textContent = "";
+    questionsContainer.innerHTML = "";
 
-    function selectLevel(level) {
-      selectedLevel = level;
-      showSection('quizSection');
-      startQuiz();
-    }
+    const questions = questionsDB[selectedCategory][selectedLevel];
 
-    function startQuiz() {
-      score = 0;
-      currentQuestion = 0;
-      showQuestion();
-    }
+    questions.forEach((q, idx) => {
+      const qDiv = document.createElement("div");
+      qDiv.className = "question-card";
 
-    function startTimer() {
-      timeLeft = 60;
-      document.getElementById('timer').innerText = `Vaxt: ${timeLeft} saniyə`;
-      timer = setInterval(() => {
-        timeLeft--;
-        document.getElementById('timer').innerText = `Vaxt: ${timeLeft} saniyə`;
-        if (timeLeft <= 0) {
-          clearInterval(timer);
-          nextQuestion();
-        }
-      }, 1000);
-    }
+      const qTitle = document.createElement("div");
+      qTitle.className = "question-title";
+      qTitle.textContent = `${idx + 1}. ${q.question}`;
+      qDiv.appendChild(qTitle);
 
-    function showQuestion() {
-      clearInterval(timer);
-      const qList = questions[selectedCategory][selectedLevel];
-      if (currentQuestion >= qList.length) {
-        showResult();
-        return;
+      q.options.forEach((opt, i) => {
+        const optionId = `q${idx}_opt${i}`;
+
+        const input = document.createElement("input");
+        input.type = "radio";
+        input.id = optionId;
+        input.name = `question${idx}`;
+        input.value = i;
+
+        const label = document.createElement("label");
+        label.htmlFor = optionId;
+        label.textContent = opt;
+
+        qDiv.appendChild(input);
+        qDiv.appendChild(label);
+      });
+
+      questionsContainer.appendChild(qDiv);
+    });
+
+    startTimer(60); // İmtahan üçün 60 saniyə
+  });
+
+  examForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    clearInterval(timerInterval); // Vaxtı dayandır
+
+    const questions = questionsDB[selectedCategory][selectedLevel];
+    let correctCount = 0;
+
+    questions.forEach((q, idx) => {
+      const selected = examForm.querySelector(`input[name="question${idx}"]:checked`);
+      const labels = examForm.querySelectorAll(`input[name="question${idx}"] + label`);
+
+      labels.forEach(label => {
+        label.classList.remove("correct", "wrong");
+      });
+
+      if(selected) {
+        const selectedIndex = parseInt(selected.value);
+        if(selectedIndex === q.answer) correctCount++;
+
+        labels.forEach(label => {
+          const inputElem = document.getElementById(label.htmlFor);
+          const val = parseInt(inputElem.value);
+          if(val === q.answer) label.classList.add("correct");
+          if(inputElem === selected && val !== q.answer) label.classList.add("wrong");
+        });
+      } else {
+        labels.forEach(label => {
+          const inputElem = document.getElementById(label.htmlFor);
+          const val = parseInt(inputElem.value);
+          if(val === q.answer) label.classList.add("correct");
+        });
       }
-      const q = qList[currentQuestion];
-      let html = `<h4>${q.q}</h4>`;
-      q.o.forEach((opt, idx) => {
-        html += `<div class="option" onclick="checkAnswer(${idx})">${opt}</div>`;
-      });
-      document.getElementById('questionBox').innerHTML = html;
-      startTimer();
-    }
 
-    function checkAnswer(choice) {
-      clearInterval(timer);
-      const qList = questions[selectedCategory][selectedLevel];
-      const correct = qList[currentQuestion].a;
-      const options = document.querySelectorAll('.option');
-      options.forEach((opt, idx) => {
-        opt.onclick = null;
-        if (idx === correct) opt.classList.add('correct');
-        else if (idx === choice) opt.classList.add('wrong');
-      });
-      if (choice === correct) score++;
-      setTimeout(nextQuestion, 1500);
-    }
+      const inputs = examForm.querySelectorAll(`input[name="question${idx}"]`);
+      inputs.forEach(input => input.disabled = true);
+    });
 
-    function nextQuestion() {
-      currentQuestion++;
-      showQuestion();
-    }
+    resultDiv.textContent = `Düzgün cavablar: ${correctCount} / ${questions.length}`;
+  });
+</script>
 
-    function showResult() {
-      document.getElementById('questionBox').innerHTML = '';
-      document.getElementById('timer').innerHTML = '';
-      document.getElementById('result').innerHTML = `Test bitdi!<br>Doğru: ${score}<br>Səhv: ${questions[selectedCategory][selectedLevel].length - score}<br><br><b>Uğurlar!</b>`;
-      document.getElementById('exitBtn').style.display = 'inline-block';
-    }
-  </script></body>
+</body>
 </html>
