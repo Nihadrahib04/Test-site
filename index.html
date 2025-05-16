@@ -167,6 +167,18 @@
     margin-bottom: 20px;
     color: #f39c12;
   }
+  #back-btn {
+    width: 100%;
+    background: #e74c3c;
+    border: none;
+    padding: 15px 0;
+    font-weight: 700;
+    font-size: 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    color: #fff;
+    margin-top: 20px;
+  }
 </style>
 </head>
 <body>
@@ -194,6 +206,7 @@
       <button type="submit" id="submit-btn">İmtahanı bitir</button>
     </form>
     <div id="result"></div>
+    <button id="back-btn">Geri qayıt</button>
   </div>
 </div>
 
@@ -207,11 +220,12 @@
   const examForm = document.getElementById('exam-form');
   const resultDiv = document.getElementById('result');
   const timerDisplay = document.getElementById('timer');
+  const backBtn = document.getElementById('back-btn');
 
   let selectedCategory = null;
   let selectedLevel = null;
   let timerInterval;
-  let timeLeft = 60; // imtahan müddəti saniyə ilə (məsələn: 60 saniyə)
+  let timeLeft = 60;
 
   categoryCards.forEach(card => {
     card.addEventListener('click', () => {
@@ -326,12 +340,12 @@
       questionsContainer.appendChild(qDiv);
     });
 
-    startTimer(60); // İmtahan üçün 60 saniyə
+    startTimer(60);
   });
 
   examForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    clearInterval(timerInterval); // Vaxtı dayandır
+    clearInterval(timerInterval);
 
     const questions = questionsDB[selectedCategory][selectedLevel];
     let correctCount = 0;
@@ -367,6 +381,22 @@
     });
 
     resultDiv.textContent = `Düzgün cavablar: ${correctCount} / ${questions.length}`;
+  });
+
+  backBtn.addEventListener('click', () => {
+    clearInterval(timerInterval);
+    examPage.style.display = "none";
+    startPage.style.display = "block";
+    questionsContainer.innerHTML = "";
+    resultDiv.textContent = "";
+    timerDisplay.textContent = "";
+    selectedCategory = null;
+    selectedLevel = null;
+
+    categoryCards.forEach(c => c.classList.remove('selected'));
+    levelButtons.forEach(b => b.classList.remove('selected'));
+    startBtn.disabled = true;
+    startBtn.classList.remove('enabled');
   });
 </script>
 
