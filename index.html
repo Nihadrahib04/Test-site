@@ -1,185 +1,185 @@
 <!DOCTYPE html>
 <html lang="az">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>İmtahan</title>
-<style>
-  /* Sənin əvvəlki CSS kodun saxlanılıb */
-  body {
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(to right, #243b55, #141e30);
-    margin: 0;
-    padding: 40px 20px;
-    color: #f0f0f0;
-  }
-  .container {
-    max-width: 480px;
-    margin: auto;
-    background-color: #1f2c3a;
-    border-radius: 16px;
-    padding: 30px 25px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.7);
-  }
-  h1 {
-    text-align: center;
-    margin-bottom: 35px;
-    color: #4cd137;
-  }
-  #category-selection {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    margin-bottom: 35px;
-  }
-  .category-card {
-    background: #2a3a4d;
-    border-radius: 12px;
-    padding: 18px 22px;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    border: 3px solid transparent;
-    transition: border-color 0.3s ease;
-  }
-  .category-card:hover {
-    border-color: #4cd137;
-  }
-  .category-card.selected {
-    border-color: #4cd137;
-    background: #3d5c71;
-  }
-  .category-icon {
-    font-size: 40px;
-    margin-right: 20px;
-    color: #4cd137;
-    width: 50px;
-    text-align: center;
-  }
-  .category-name {
-    font-size: 24px;
-    font-weight: 700;
-  }
-  #level-selection {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 35px;
-  }
-  #level-selection button {
-    background: #2a3a4d;
-    border: none;
-    padding: 12px 22px;
-    border-radius: 12px;
-    font-size: 18px;
-    font-weight: 600;
-    color: #ddd;
-    cursor: pointer;
-    flex: 1;
-    margin: 0 8px;
-    transition: background-color 0.3s ease;
-  }
-  #level-selection button.selected {
-    background-color: #4cd137;
-    color: #141e30;
-    box-shadow: 0 0 8px #4cd137;
-  }
-  #start-exam-btn {
-    width: 100%;
-    background: #4cd137;
-    border: none;
-    padding: 16px 0;
-    border-radius: 30px;
-    font-weight: 700;
-    font-size: 22px;
-    color: #141e30;
-    cursor: pointer;
-    opacity: 0.6;
-    transition: opacity 0.3s ease;
-  }
-  #start-exam-btn.enabled {
-    opacity: 1;
-  }
-  #exam-page {
-    display: none;
-  }
-  .question-card {
-    background: #2f3e56;
-    border-radius: 14px;
-    padding: 20px;
-    margin-bottom: 20px;
-  }
-  .question-title {
-    font-weight: 700;
-    margin-bottom: 15px;
-    color: #8df57d;
-  }
-  label {
-    display: block;
-    background: #1f2c3a;
-    padding: 10px 16px;
-    margin-bottom: 12px;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    color: #f0f0f0;
-  }
-  input[type="radio"] {
-    display: none;
-  }
-  input[type="radio"]:checked + label {
-    background-color: #4cd137;
-    color: #141e30;
-    box-shadow: 0 0 10px #4cd137;
-  }
-  #submit-btn {
-    width: 100%;
-    background: #4cd137;
-    border: none;
-    padding: 15px 0;
-    font-weight: 700;
-    font-size: 20px;
-    border-radius: 30px;
-    cursor: pointer;
-    color: #141e30;
-    margin-top: 10px;
-  }
-  #result {
-    margin-top: 25px;
-    font-size: 22px;
-    font-weight: 700;
-    color: #4cd137;
-    text-align: center;
-  }
-  label.correct {
-    background-color: #27ae60 !important;
-    color: #ecf0f1 !important;
-    box-shadow: 0 0 10px #27ae60 !important;
-  }
-  label.wrong {
-    background-color: #c0392b !important;
-    color: #ecf0f1 !important;
-    box-shadow: 0 0 10px #c0392b !important;
-  }
-  #timer {
-    text-align: center;
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 20px;
-    color: #f39c12;
-  }
-  #back-btn {
-    width: 100%;
-    background: #e74c3c;
-    border: none;
-    padding: 15px 0;
-    font-weight: 700;
-    font-size: 20px;
-    border-radius: 30px;
-    cursor: pointer;
-    color: #fff;
-    margin-top: 20px;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>İmtahan</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #243b55, #141e30);
+      margin: 0;
+      padding: 40px 20px;
+      color: #f0f0f0;
+    }
+    .container {
+      max-width: 480px;
+      margin: auto;
+      background-color: #1f2c3a;
+      border-radius: 16px;
+      padding: 30px 25px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.7);
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 35px;
+      color: #4cd137;
+    }
+    #category-selection, #subtopics {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      margin-bottom: 20px;
+    }
+    .category-card, .subtopic-card {
+      background: #2a3a4d;
+      border-radius: 12px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      border: 3px solid transparent;
+      transition: border-color 0.3s ease;
+    }
+    .category-card:hover, .subtopic-card:hover {
+      border-color: #4cd137;
+    }
+    .category-card.selected, .subtopic-card.selected {
+      border-color: #4cd137;
+      background: #3d5c71;
+    }
+    .category-icon {
+      font-size: 32px;
+      margin-right: 16px;
+      color: #4cd137;
+      width: 40px;
+      text-align: center;
+    }
+    .category-name {
+      font-size: 20px;
+      font-weight: 700;
+    }
+    #level-selection {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+    }
+    #level-selection button {
+      background: #2a3a4d;
+      border: none;
+      padding: 12px 22px;
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: 600;
+      color: #ddd;
+      cursor: pointer;
+      flex: 1;
+      margin: 0 8px;
+      transition: background-color 0.3s ease;
+    }
+    #level-selection button.selected {
+      background-color: #4cd137;
+      color: #141e30;
+      box-shadow: 0 0 8px #4cd137;
+    }
+    #start-exam-btn, #next-level-btn {
+      width: 100%;
+      background: #4cd137;
+      border: none;
+      padding: 16px 0;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 22px;
+      color: #141e30;
+      cursor: pointer;
+      opacity: 0.6;
+      transition: opacity 0.3s ease;
+      margin-top: 15px;
+    }
+    #start-exam-btn.enabled {
+      opacity: 1;
+    }
+    #exam-page {
+      display: none;
+    }
+    .question-card {
+      background: #2f3e56;
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .question-title {
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: #8df57d;
+    }
+    label {
+      display: block;
+      background: #1f2c3a;
+      padding: 10px 16px;
+      margin-bottom: 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      color: #f0f0f0;
+    }
+    input[type="radio"] {
+      display: none;
+    }
+    input[type="radio"]:checked + label {
+      background-color: #4cd137;
+      color: #141e30;
+      box-shadow: 0 0 10px #4cd137;
+    }
+    #submit-btn {
+      width: 100%;
+      background: #4cd137;
+      border: none;
+      padding: 15px 0;
+      font-weight: 700;
+      font-size: 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      color: #141e30;
+      margin-top: 10px;
+    }
+    #result {
+      margin-top: 25px;
+      font-size: 22px;
+      font-weight: 700;
+      color: #4cd137;
+      text-align: center;
+    }
+    label.correct {
+      background-color: #27ae60 !important;
+      color: #ecf0f1 !important;
+      box-shadow: 0 0 10px #27ae60 !important;
+    }
+    label.wrong {
+      background-color: #c0392b !important;
+      color: #ecf0f1 !important;
+      box-shadow: 0 0 10px #c0392b !important;
+    }
+    #timer {
+      text-align: center;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: #f39c12;
+    }
+    #back-btn {
+      width: 100%;
+      background: #e74c3c;
+      border: none;
+      padding: 15px 0;
+      font-weight: 700;
+      font-size: 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      color: #fff;
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
 
@@ -191,11 +191,18 @@
       <div class="category-card" data-category="finance"><div class="category-icon">💰</div><div class="category-name">Maliyyə</div></div>
       <div class="category-card" data-category="sales"><div class="category-icon">📈</div><div class="category-name">Satış</div></div>
     </div>
+
+    <div id="subtopics-container" style="display:none;">
+      <h3>Alt mövzu seçin</h3>
+      <div id="subtopics"></div>
+    </div>
+
     <div id="level-selection">
       <button data-level="asan">Asan</button>
       <button data-level="orta">Orta</button>
       <button data-level="cetin">Çətin</button>
     </div>
+
     <button id="start-exam-btn" disabled>İmtahana başla</button>
   </div>
 
@@ -206,6 +213,7 @@
       <button type="submit" id="submit-btn">İmtahanı bitir</button>
     </form>
     <div id="result"></div>
+    <button id="next-level-btn" style="display:none;">Növbəti səviyyəyə keç</button>
     <button id="back-btn">Geri qayıt</button>
   </div>
 </div>
@@ -221,20 +229,53 @@
   const resultDiv = document.getElementById('result');
   const timerDisplay = document.getElementById('timer');
   const backBtn = document.getElementById('back-btn');
+  const nextLevelBtn = document.getElementById('next-level-btn');
+  const subtopicsContainer = document.getElementById('subtopics-container');
+  const subtopicsDiv = document.getElementById('subtopics');
 
   let selectedCategory = null;
   let selectedLevel = null;
+  let selectedSubtopic = null;
   let timerInterval;
   let timeLeft = 60;
+
+  const subtopicsList = {
+    hr: ['İşçi', 'Əmək haqqı', 'Əmək müqaviləsi'],
+    finance: ['Büdcə', 'Vergi', 'Mühasibat'],
+    sales: ['Rabitə', 'Rəqabət', 'Müştəri']
+  };
 
   categoryCards.forEach(card => {
     card.addEventListener('click', () => {
       categoryCards.forEach(c => c.classList.remove('selected'));
       card.classList.add('selected');
       selectedCategory = card.dataset.category;
+      showSubtopics(selectedCategory);
       checkReadyToStart();
     });
   });
+
+  function showSubtopics(category) {
+    subtopicsDiv.innerHTML = "";
+    selectedSubtopic = null;
+    if(subtopicsList[category]) {
+      subtopicsList[category].forEach(topic => {
+        const div = document.createElement('div');
+        div.className = 'subtopic-card';
+        div.textContent = topic;
+        div.addEventListener('click', () => {
+          document.querySelectorAll('.subtopic-card').forEach(s => s.classList.remove('selected'));
+          div.classList.add('selected');
+          selectedSubtopic = topic;
+          checkReadyToStart();
+        });
+        subtopicsDiv.appendChild(div);
+      });
+      subtopicsContainer.style.display = "block";
+    } else {
+      subtopicsContainer.style.display = "none";
+    }
+  }
 
   levelButtons.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -246,7 +287,7 @@
   });
 
   function checkReadyToStart() {
-    if(selectedCategory && selectedLevel) {
+    if (selectedCategory && selectedLevel && (!subtopicsList[selectedCategory] || selectedSubtopic)) {
       startBtn.disabled = false;
       startBtn.classList.add('enabled');
     } else {
@@ -258,29 +299,10 @@
   const questionsDB = {
     hr: {
       asan: [
-        { question: "İşçilərin motivasiyasını artırmaq üçün hansı metod təsirlidir?", options: ["Mükafatlandırma", "Cəzalandırma", "Yalnız maaş artırımı", "Əməkdaşlığı məhdudlaşdırmaq"], answer: 0 },
-        { question: "İşə qəbul zamanı əsas kriteriya nədir?", options: ["Təcrübə", "Yaş", "Cins", "Yalnız diplom"], answer: 0 },
-      ],
-      orta: [
-        { question: "HR-də ‘360 dərəcə qiymətləndirmə’ nə deməkdir?", options: ["Yalnız rəhbər qiymətləndirir", "Bir neçə mənbədən qiymətləndirmə", "İşçilərin özünü qiymətləndirməsi yoxdur", "Müştərilər qiymətləndirir"], answer: 1 },
-      ],
-      cetin: [
-        { question: "İşçi motivasiyası üçün Hansı nəzəriyyə doğrudur?", options: ["Maslovun ehtiyaclar piramidası", "Newtonun hərəkət qanunu", "Darvinin təkamül nəzəriyyəsi", "Pavlovun refleksləri"], answer: 0 },
-      ],
-    },
-    finance: {
-      asan: [
-        { question: "Pul vahidi nədir?", options: ["Valyuta", "Məhsul", "Xidmət", "Mallar"], answer: 0 },
+        { question: "Motivasiyanı artırmaq üçün ən uyğun yanaşma?", options: ["Mükafat", "Cəza", "İşdən çıxarma", "Məhdudiyyət"], answer: 0 }
       ],
       orta: [],
-      cetin: [],
-    },
-    sales: {
-      asan: [
-        { question: "Satışda əsas məqsəd nədir?", options: ["Müştərini məmnun etmək", "Məhsulu pulsuz vermək", "Reklam etmək", "Qiyməti artırmaq"], answer: 0 },
-      ],
-      orta: [],
-      cetin: [],
+      cetin: []
     }
   };
 
@@ -308,13 +330,13 @@
     examPage.style.display = "block";
     resultDiv.textContent = "";
     questionsContainer.innerHTML = "";
+    nextLevelBtn.style.display = "none";
 
-    const questions = questionsDB[selectedCategory][selectedLevel];
+    const questions = questionsDB[selectedCategory][selectedLevel] || [];
 
     questions.forEach((q, idx) => {
       const qDiv = document.createElement("div");
       qDiv.className = "question-card";
-
       const qTitle = document.createElement("div");
       qTitle.className = "question-title";
       qTitle.textContent = `${idx + 1}. ${q.question}`;
@@ -322,17 +344,14 @@
 
       q.options.forEach((opt, i) => {
         const optionId = `q${idx}_opt${i}`;
-
         const input = document.createElement("input");
         input.type = "radio";
         input.id = optionId;
         input.name = `question${idx}`;
         input.value = i;
-
         const label = document.createElement("label");
         label.htmlFor = optionId;
         label.textContent = opt;
-
         qDiv.appendChild(input);
         qDiv.appendChild(label);
       });
@@ -347,16 +366,14 @@
     e.preventDefault();
     clearInterval(timerInterval);
 
-    const questions = questionsDB[selectedCategory][selectedLevel];
+    const questions = questionsDB[selectedCategory][selectedLevel] || [];
     let correctCount = 0;
 
     questions.forEach((q, idx) => {
       const selected = examForm.querySelector(`input[name="question${idx}"]:checked`);
       const labels = examForm.querySelectorAll(`input[name="question${idx}"] + label`);
 
-      labels.forEach(label => {
-        label.classList.remove("correct", "wrong");
-      });
+      labels.forEach(label => label.classList.remove("correct", "wrong"));
 
       if(selected) {
         const selectedIndex = parseInt(selected.value);
@@ -371,8 +388,7 @@
       } else {
         labels.forEach(label => {
           const inputElem = document.getElementById(label.htmlFor);
-          const val = parseInt(inputElem.value);
-          if(val === q.answer) label.classList.add("correct");
+          if(parseInt(inputElem.value) === q.answer) label.classList.add("correct");
         });
       }
 
@@ -381,6 +397,16 @@
     });
 
     resultDiv.textContent = `Düzgün cavablar: ${correctCount} / ${questions.length}`;
+    if (selectedLevel === "asan") nextLevelBtn.style.display = "block";
+  });
+
+  nextLevelBtn.addEventListener('click', () => {
+    levelButtons.forEach(btn => {
+      if (btn.dataset.level === "orta") {
+        btn.click();
+      }
+    });
+    backBtn.click();
   });
 
   backBtn.addEventListener('click', () => {
@@ -392,9 +418,13 @@
     timerDisplay.textContent = "";
     selectedCategory = null;
     selectedLevel = null;
+    selectedSubtopic = null;
 
     categoryCards.forEach(c => c.classList.remove('selected'));
     levelButtons.forEach(b => b.classList.remove('selected'));
+    document.querySelectorAll('.subtopic-card').forEach(s => s.remove());
+    subtopicsContainer.style.display = "none";
+
     startBtn.disabled = true;
     startBtn.classList.remove('enabled');
   });
